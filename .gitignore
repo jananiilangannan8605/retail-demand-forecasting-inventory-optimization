@@ -7,3 +7,14 @@ __pycache__/
 .idea/
 *.log
 .DS_Store
+
+# Dataset files
+data/*.csv
+data/*.zip
+
+# Generated model files
+models/*.pkl
+models/*.joblib
+
+# Generated outputs
+outputs/*
