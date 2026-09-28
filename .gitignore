@@ -18,3 +18,5 @@ models/*.joblib
 
 # Generated outputs
 outputs/*
+# M5 raw dataset
+data/raw/
