@@ -1,0 +1,98 @@
+version: 2
+
+models:
+
+  - name: stg_calendar
+    description: "Cleaned calendar data from the M5 dataset."
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+
+      - name: d
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_sell_prices
+    description: "Cleaned weekly selling price data."
+    columns:
+      - name: store_id
+        tests:
+          - not_null
+
+      - name: item_id
+        tests:
+          - not_null
+
+      - name: wm_yr_wk
+        tests:
+          - not_null
+
+      - name: sell_price
+        tests:
+          - not_null
+
+  - name: stg_sales
+    description: "Long-format daily sales data from the M5 validation dataset."
+    columns:
+      - name: id
+        tests:
+          - not_null
+
+      - name: item_id
+        tests:
+          - not_null
+
+      - name: store_id
+        tests:
+          - not_null
+
+      - name: date
+        tests:
+          - not_null
+
+      - name: d
+        tests:
+          - not_null
+
+      - name: demand
+        tests:
+          - not_null
+
+  - name: daily_demand
+    description: "Total retail demand aggregated at daily level."
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+
+      - name: total_demand
+        tests:
+          - not_null
+
+  - name: weekly_demand
+    description: "Total retail demand aggregated at weekly level."
+    columns:
+      - name: week_start
+        tests:
+          - not_null
+          - unique
+
+      - name: total_demand
+        tests:
+          - not_null
+
+  - name: monthly_demand
+    description: "Total retail demand aggregated at monthly level."
+    columns:
+      - name: month_start
+        tests:
+          - not_null
+          - unique
+
+      - name: total_demand
+        tests:
+          - not_null
