@@ -58,3 +58,24 @@ if __name__ == "__main__":
 
     print("\nDemand summary:")
     print(df["total_demand"].describe())
+
+    # ============================================================
+    # Weekly Demand Analysis
+    # ============================================================
+
+    df["date"] = pd.to_datetime(df["date"])
+
+    weekly_demand = (
+        df.set_index("date")["total_demand"]
+        .resample("W")
+        .sum()
+        .reset_index()
+    )
+
+    print("\nWeekly demand sample:")
+    print(weekly_demand.head(10))
+
+    print("\nTotal weeks:", len(weekly_demand))
+
+    print("\nWeekly demand summary:")
+    print(weekly_demand["total_demand"].describe())
