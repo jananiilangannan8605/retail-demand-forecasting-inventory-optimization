@@ -79,3 +79,21 @@ if __name__ == "__main__":
 
     print("\nWeekly demand summary:")
     print(weekly_demand["total_demand"].describe())
+# ============================================================
+# Monthly Demand Analysis
+# ============================================================
+
+monthly_demand = (
+    df.set_index("date")["total_demand"]
+    .resample("ME")
+    .sum()
+    .reset_index()
+)
+
+print("\nMonthly demand sample:")
+print(monthly_demand.head(10))
+
+print("\nTotal months:", len(monthly_demand))
+
+print("\nMonthly demand summary:")
+print(monthly_demand["total_demand"].describe())
