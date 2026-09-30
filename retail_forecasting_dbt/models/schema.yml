@@ -3,96 +3,169 @@ version: 2
 models:
 
   - name: stg_calendar
-    description: "Cleaned calendar data from the M5 dataset."
+    description: "Staging model containing cleaned calendar and event information from the M5 dataset."
     columns:
       - name: date
+        description: "Calendar date associated with the M5 day identifier."
         tests:
           - not_null
           - unique
+
+      - name: wm_yr_wk
+        description: "M5 week identifier used to connect calendar dates with selling prices."
+        tests:
+          - not_null
+
+      - name: weekday
+        description: "Name of the weekday."
+
+      - name: wday
+        description: "Numeric weekday identifier."
+
+      - name: month
+        description: "Month number."
+
+      - name: year
+        description: "Calendar year."
 
       - name: d
+        description: "M5 daily identifier such as d_1, d_2, and so on."
         tests:
           - not_null
           - unique
 
+      - name: event_name_1
+        description: "Primary event or holiday name."
+
+      - name: event_type_1
+        description: "Primary event or holiday type."
+
+      - name: event_name_2
+        description: "Secondary event or holiday name."
+
+      - name: event_type_2
+        description: "Secondary event or holiday type."
+
+      - name: snap_CA
+        description: "SNAP indicator for California."
+
+      - name: snap_TX
+        description: "SNAP indicator for Texas."
+
+      - name: snap_WI
+        description: "SNAP indicator for Wisconsin."
+
+
   - name: stg_sell_prices
-    description: "Cleaned weekly selling price data."
+    description: "Staging model containing weekly selling prices for each store and item."
     columns:
       - name: store_id
+        description: "Unique identifier for the store."
         tests:
           - not_null
 
       - name: item_id
+        description: "Unique identifier for the item."
         tests:
           - not_null
 
       - name: wm_yr_wk
+        description: "M5 week identifier for the selling price."
         tests:
           - not_null
 
       - name: sell_price
+        description: "Selling price of the item for the store and week."
         tests:
           - not_null
 
+
   - name: stg_sales
-    description: "Long-format daily sales data from the M5 validation dataset."
+    description: "Long-format daily sales staging model created by transforming the M5 validation dataset from wide format into daily records."
     columns:
       - name: id
+        description: "Unique identifier representing an item-store sales series."
         tests:
           - not_null
 
       - name: item_id
+        description: "Unique identifier for the product."
         tests:
           - not_null
+
+      - name: dept_id
+        description: "Department identifier for the product."
+
+      - name: cat_id
+        description: "Category identifier for the product."
 
       - name: store_id
+        description: "Store identifier."
         tests:
           - not_null
 
+      - name: state_id
+        description: "State identifier of the store."
+
       - name: date
+        description: "Calendar date corresponding to the M5 daily sales record."
         tests:
           - not_null
 
       - name: d
+        description: "M5 daily identifier."
         tests:
           - not_null
 
       - name: demand
+        description: "Daily unit demand for the item-store combination."
         tests:
           - not_null
+
 
   - name: daily_demand
-    description: "Total retail demand aggregated at daily level."
+    description: "Daily demand mart aggregating unit demand across all products and stores."
     columns:
       - name: date
+        description: "Date of the aggregated demand."
         tests:
           - not_null
           - unique
 
+      - name: d
+        description: "M5 daily identifier."
+
       - name: total_demand
+        description: "Total units sold across all products and stores for the day."
         tests:
           - not_null
+
 
   - name: weekly_demand
-    description: "Total retail demand aggregated at weekly level."
+    description: "Weekly demand mart aggregating daily demand into calendar weeks."
     columns:
       - name: week_start
+        description: "Starting date of the calendar week."
         tests:
           - not_null
           - unique
 
       - name: total_demand
+        description: "Total units demanded during the week."
         tests:
           - not_null
+
 
   - name: monthly_demand
-    description: "Total retail demand aggregated at monthly level."
+    description: "Monthly demand mart aggregating daily demand into calendar months."
     columns:
       - name: month_start
+        description: "Starting date of the calendar month."
         tests:
           - not_null
           - unique
 
       - name: total_demand
+        description: "Total units demanded during the month."
         tests:
           - not_null
