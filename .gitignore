@@ -1,5 +1,6 @@
 .venv/
 __pycache__/
+**/__pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 .env
@@ -11,6 +12,7 @@ __pycache__/
 # Dataset files
 data/*.csv
 data/*.zip
+data/raw/
 
 # Generated model files
 models/*.pkl
@@ -18,5 +20,7 @@ models/*.joblib
 
 # Generated outputs
 outputs/*
-# M5 raw dataset
-data/raw/
+
+# dbt generated files
+**/target/
+**/logs/
